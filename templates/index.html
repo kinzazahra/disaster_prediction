@@ -1,15 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Disaster Risk Map</title>
-</head>
-<body>
+<h2>Enter Data</h2>
 
-<h1>🌍 Disaster Risk Visualization</h1>
+<input id="rainfall" placeholder="Rainfall">
+<input id="slope" placeholder="Slope">
+<input id="elevation" placeholder="Elevation">
 
-<div>
+<button onclick="predict()">Predict Risk</button>
+
+<h3 id="result"></h3>
+
+<hr>
+
+<h2>🌍 Map</h2>
+<div id="map">
     {{ map | safe }}
 </div>
 
-</body>
-</html>
+<script>
+function predict() {
+    fetch('/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            rainfall: document.getElementById('rainfall').value,
+            slope: document.getElementById('slope').value,
+            elevation: document.getElementById('elevation').value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        let resultText = data.risk === 1 ? "⚠️ High Risk" : "✅ Safe";
+        document.getElementById('result').innerText = resultText;
+
+        // 🔥 Add marker dynamically (simple alert for now)
+        alert("Prediction: " + resultText);
+    });
+}
+</script>
