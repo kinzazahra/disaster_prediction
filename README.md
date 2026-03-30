@@ -130,8 +130,3 @@ This project can help in:
 ## 👩‍💻 Author
 
 **Kinza Zahra**
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 787c38b (update)
